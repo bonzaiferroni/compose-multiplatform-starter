@@ -7,8 +7,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +27,7 @@ import cafe.adriel.voyager.kodein.rememberScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import chopui.Scaffold
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import sqldem.composeapp.generated.resources.Res
@@ -35,24 +42,26 @@ class HomeScreen : Screen {
         val text by screenModel.entityName
         val counter by screenModel.counter
 
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            // ExtraScreenContent(navigator)
-            // GreetingContent()
-            Text("counter: $counter")
-            Button(onClick = screenModel::growCounter) {
-                Text("grow")
-            }
-            TextField(
-                value = text,
-                onValueChange = screenModel::onEntityNameChange,
-                label = { Text("New Entity") },
-            )
-            Button(onClick = screenModel::addEntity) {
-                Text("add")
-            }
-            Text("items:")
-            entities.forEach{
-                Text(it.name)
+        Scaffold {
+            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                ExtraScreenContent(navigator)
+                // GreetingContent()
+                Text("counter: $counter")
+                Button(onClick = screenModel::growCounter) {
+                    Text("grow")
+                }
+                TextField(
+                    value = text,
+                    onValueChange = screenModel::onEntityNameChange,
+                    label = { Text("New Entity") },
+                )
+                Button(onClick = screenModel::addEntity) {
+                    Text("add")
+                }
+                Text("items:")
+                entities.forEach{
+                    Text(it.name)
+                }
             }
         }
     }
@@ -60,7 +69,6 @@ class HomeScreen : Screen {
     @Composable
     fun GreetingContent() {
         var showContent by remember { mutableStateOf(false) }
-
         Button(onClick = { showContent = !showContent }) {
             Text("Click me!")
         }
