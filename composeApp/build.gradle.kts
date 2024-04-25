@@ -50,6 +50,8 @@ kotlin {
             implementation("cafe.adriel.voyager:voyager-kodein:$voyagerVersion")
             implementation("org.kodein.di:kodein-di-framework-compose:$kodeinVersion")
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+
+            implementation(project(":chopui"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
